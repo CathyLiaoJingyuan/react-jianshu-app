@@ -52,8 +52,13 @@ export const NavSearch = styled.input.attrs({ placeholder: "search" })`
   background: #eee;
   margin-top: 9px;
   font-size: 14px;
-  ::placeholder {
+  transition: all 0.5s ease;
+  &::placeholder {
     color: #999;
+  }
+  &.focused {
+    width: 200px;
+    outline: none;
   }
 `;
 
@@ -88,5 +93,11 @@ export const FeatherAltIcon = styled(FeatherAlt)`
 export const SearchIcon = styled(Search)`
   color: #999;
   position: absolute;
-  transform: translate(-26px, 20px);
+  transform: translate(-36px, 14px);
+  border-radius: 50%;
+  padding: 8px;
+  &.icon-focused {
+    color: #fff;
+    background: #808080;
+  }
 `;

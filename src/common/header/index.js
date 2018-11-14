@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import {
   HeaderWrapper,
   Logo,
@@ -21,7 +23,15 @@ class Header extends Component {
           <NavItem className="left">下载App</NavItem>
           <NavItem className="right">登录</NavItem>
           <NavItem className="right">Aa</NavItem>
-          <NavSearch /> <SearchIcon size="14px" />
+          <NavSearch
+            onFocus={this.props.handleInputFocus}
+            onBlur={this.props.handleInputFocusOut}
+            className={this.props.focused ? "focused" : ""}
+          />
+          <SearchIcon
+            size="14px"
+            className={this.props.focused ? "icon-focused" : ""}
+          />
         </Nav>
         <Addition>
           <Button className="reg">注册</Button>
@@ -34,4 +44,30 @@ class Header extends Component {
     );
   }
 }
-export default Header;
+
+const mapStateToProps = state => {
+  return {
+    focused: state.focused
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    handleInputFocus() {
+      const action = {
+        type: "search_focus"
+      };
+      dispatch(action);
+    },
+    handleInputFocusOut() {
+      const action = {
+        type: "search_blur"
+      };
+      dispatch(action);
+    }
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);
